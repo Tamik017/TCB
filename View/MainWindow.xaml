@@ -1,0 +1,157 @@
+﻿<Window x:Class="TwitchBot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:TwitchBot"
+        mc:Ignorable="d"
+        
+        xmlns:Menu="clr-namespace:TwitchBot.View"
+        xmlns:vm="clr-namespace:TwitchBot.ViewModel"
+        xmlns:uc="clr-namespace:TwitchBot.Pages"
+        
+        Title="CBT" Height="720" Width="1280"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:Navigation/>
+    </Window.DataContext>
+    
+    <Window.Icon>
+        <BitmapImage UriSource="/Resources/img/ico4.png"/>
+    </Window.Icon>
+
+    <Border Background="#ffffff" CornerRadius="50"
+            MouseDown="Border_MouseDown">
+
+        <Grid x:Name="WorkingArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="310"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Управление окном-->
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" 
+                        Margin="0 25 30 0" VerticalAlignment="Top">
+                <Button Grid.Column="1" Style="{StaticResource TopButton}" x:Name="ButtonCollapse" Command="{Binding CollapseWin}">
+                    <Image Source="/Resources/img/свернуть.png" VerticalAlignment="Center"
+                           Width="50" Height="50"/>
+                </Button>
+
+                <Button Style="{StaticResource TopButton}" x:Name="ButtonClose" Command="{Binding CloseWin}" 
+                        Margin="15 -4 0 0">
+                    <Image Source="/Resources/img/закрыть.png" VerticalAlignment="Center" 
+                           Width="44" Height="43"/>
+                </Button>
+            </StackPanel>
+            <!--Левое меню-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="1" Background="#FF0000" Opacity="0.7"
+                        CornerRadius="0 68 0 50" Margin="0 115 0 0">
+                    <DockPanel>
+                        <!--Лого меню-->
+                        <Border Width="140" Height="140" Padding="3"
+                                Background="White" CornerRadius="100"
+                                DockPanel.Dock="Top" HorizontalAlignment="Left"
+                                Margin="40 -30 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="5" Color="Black" 
+                                                  Opacity="0.9" BlurRadius="20"/>
+                            </Border.Effect>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Resources/img/icomenu.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+                        <!--Заголовок меню-->
+                        <TextBlock Text="Twitch Chat Bot" Foreground="White" 
+                                       FontSize="24" FontWeight="Regular"
+                                       DockPanel.Dock="Top" TextAlignment="Center"
+                                       Margin="0 20 0 0"/>
+
+                        <Separator Margin="40 20 40 30" DockPanel.Dock="Top"
+                                   Height="2" Background="Black"/>
+
+                        <Separator  Margin="40 -190 40 30" DockPanel.Dock="Bottom"
+                                   Height="2" Background="Black"/>
+                        <!--Кнопки меню-->
+                        <StackPanel>
+                            <Menu:ButtonOverride x:Name="Dashboard" Style="{StaticResource menuButton}" 
+                                                 Command="{Binding DashboardCommand}" IsChecked="True" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/img/dashboard.png" 
+                                           Style="{StaticResource MenuButtonIcon}" Width="40" 
+                                           Margin="40 0 20 0"/>
+                                    <TextBlock Text="Dashboard" Margin="0 10 0 10"/>
+                                </StackPanel>
+                            </Menu:ButtonOverride>
+
+                            <Menu:ButtonOverride x:Name="Commands" Style="{StaticResource menuButton}" 
+                                                 Command="{Binding CommandsCommand}"
+                                                 Margin="15 0 15 0">
+                                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                    <Image Source="/Resources/img/commands.png" 
+                                           Style="{StaticResource MenuButtonIcon}" Width="40"
+                                           Margin="40 0 20 0"/>
+                                    <TextBlock Text="Commands" Margin="0 0 0 15"/>
+                                </StackPanel>
+                            </Menu:ButtonOverride>
+
+                            <Menu:ButtonOverride x:Name="Giveaway" Style="{StaticResource menuButton}" 
+                                                 Command="{Binding GiveawayCommand}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/img/giveaway.png" 
+                                           Style="{StaticResource MenuButtonIcon}" Width="40" 
+                                           Margin="40 0 20 0"/>
+                                    <TextBlock Text="Giveaway" Margin="0 10 0 10"/>
+                                </StackPanel>
+                            </Menu:ButtonOverride>
+
+                            <Menu:ButtonOverride x:Name="Settings" Style="{StaticResource menuButton}" 
+                                                 Command="{Binding SettingsCommand}" 
+                                                 Margin="15 0 15 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/img/settings.png" 
+                                           Style="{StaticResource MenuButtonIcon}" Width="40" 
+                                           Margin="40 0 20 0"/>
+                                    <TextBlock Text="Settings"/>
+                                </StackPanel>
+                            </Menu:ButtonOverride>
+
+                            <Menu:ButtonOverride x:Name="Help" Style="{StaticResource menuButton}" 
+                                                 Command="{Binding HelpCommand}" 
+                                                 Margin="15 40 15 0">
+                                <StackPanel Orientation="Horizontal" >
+                                    <Image Source="/Resources/img/help.png" 
+                                           Style="{StaticResource MenuButtonIcon}" Width="40" 
+                                           Margin="40 0 20 0"/>
+                                    <TextBlock Text="Help" Margin="0 10 0 10"/>
+                                </StackPanel>
+                            </Menu:ButtonOverride>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1" Margin="25 20" Width="920" Height="680">
+                <ContentControl x:Name="Pages" VerticalAlignment="Top"
+                                HorizontalAlignment="Left" Content="{Binding CurrentView}"/>
+                <!--<uc:Commands VerticalAlignment="Top" HorizontalAlignment="Left"  />-->
+                <!--<uc:Dashboard/>-->
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

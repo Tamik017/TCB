@@ -1,0 +1,2 @@
+bot oauth:b6e3nho3kji9zsjgk2d0hr181dszyj
+channel oauth:i2ojl8kq0t334xfhszvyfmxx2o3dnb

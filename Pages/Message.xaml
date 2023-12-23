@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="TwitchBot.Pages.Message"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TwitchBot.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="176" d:DesignWidth="240">
+    <UserControl.Resources>
+        <Storyboard x:Key="Storyboard1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Mess">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="Storyboard2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backr" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="Storyboard3">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backr" Completed="DoubleAnimationUsingKeyFrames_Completed">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+            <BeginStoryboard Storyboard="{StaticResource Storyboard2}"/>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseWindow">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard3}"/>
+        </EventTrigger>
+
+    </UserControl.Triggers>
+    <Border  Background="#7F000000" CornerRadius="34.6" Width="auto" Height="auto" x:Name="backr">
+
+
+        <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="20" x:Name="Mess" Opacity="0">
+            <Grid Margin="50 10 10 0">
+                <StackPanel Margin="0 0 0 15" Orientation="Vertical">
+                    <Label Content="Add command" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="17" Margin="-30 0 0 2" FontWeight="Medium" x:Name="Caption"/>
+                    <Separator Margin="-50 0 -10 20" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
+                    <StackPanel Orientation="Horizontal" Margin="-40 0 0 0">
+                        <TextBlock Text="Command" FontSize="13" FontWeight="DemiBold"/>
+                        <TextBox Margin="10 0 0 0" FontSize="13" Width="150" x:Name="CMD"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Message" FontSize="13" FontWeight="DemiBold" Margin="-40 0 0 0"/>
+                        <TextBox Margin="20 0 0 0" FontSize="13" Width="150" x:Name="CommandText"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20 20 3 0">
+                        <Button x:Name="Accept" Content="Submit" Style="{StaticResource gridEditButton}" Margin="0 0 5 0" Background="#6741d9"   Cursor="Hand" Click="Accept_Click"/>
+                        <Button x:Name="CloseWindow" Content="Cancel" Style="{StaticResource gridRemoveButton}" Background="#d32f2f" BorderBrush="#c2c2c2" Cursor="Hand"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>
